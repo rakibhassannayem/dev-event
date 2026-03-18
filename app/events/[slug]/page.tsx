@@ -5,7 +5,7 @@ import { getSimilarEventsBySlug } from "@/lib/actions/event.actions";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 const EventDetailItem = ({
   icon,
@@ -46,7 +46,11 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 const parseArrayField = (field: any): string[] => {
   if (!field) return [];
   if (Array.isArray(field)) {
-    if (field.length === 1 && typeof field[0] === 'string' && field[0].startsWith('[')) {
+    if (
+      field.length === 1 &&
+      typeof field[0] === "string" &&
+      field[0].startsWith("[")
+    ) {
       try {
         return JSON.parse(field[0]);
       } catch {
