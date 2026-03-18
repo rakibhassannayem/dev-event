@@ -1,5 +1,5 @@
 import EventCard from "@/components/EventCard";
-import { IEvent } from "@/database";
+// import { IEvent } from "@/database";
 import { events, EventItem } from "@/lib/constants";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
