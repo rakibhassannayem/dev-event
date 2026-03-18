@@ -1,24 +1,21 @@
 import EventCard from "@/components/EventCard";
-// import { IEvent } from "@/database";
-import { events, EventItem } from "@/lib/constants";
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+import { IEvent } from "@/database";
 
 const EventsPage = async () => {
-  // let events = [];
+  let events = [];
 
-  // try {
-  //   const response = await fetch(`${BASE_URL}/api/events`, {
-  //     cache: "no-store",
-  //   });
+  try {
+    const response = await fetch(`/api/events`, {
+      next: { revalidate: 60 },
+    });
 
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     events = data.events || [];
-  //   }
-  // } catch (error) {
-  //   console.error("Failed to fetch events:", error);
-  // }
+    if (response.ok) {
+      const data = await response.json();
+      events = data.events || [];
+    }
+  } catch (error) {
+    console.error("Failed to fetch events:", error);
+  }
 
   return (
     <section className="">
@@ -33,7 +30,7 @@ const EventsPage = async () => {
 
         <ul className="events">
           {events && events.length > 0 ? (
-            events.map((event: EventItem) => (
+            events.map((event: IEvent) => (
               <li key={event.slug || event.title}>
                 <EventCard {...event} />
               </li>

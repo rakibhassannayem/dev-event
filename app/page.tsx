@@ -1,8 +1,12 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { events, EventItem } from "@/lib/constants";
+import { IEvent } from "@/database";
 
-const Page = () => {
+const Page = async () => {
+  const response = await fetch(`/api/events`, {
+    next: { revalidate: 60 },
+  });
+  const { events } = await response.json();
 
   return (
     <section className="">
@@ -19,7 +23,7 @@ const Page = () => {
         <ul className="events">
           {events &&
             events.length > 0 &&
-            events.map((event: EventItem) => (
+            events.map((event: IEvent) => (
               <li key={event.title}>
                 <EventCard {...event} />
               </li>
