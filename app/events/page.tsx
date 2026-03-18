@@ -1,11 +1,13 @@
 import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 const EventsPage = async () => {
   let events = [];
 
   try {
-    const response = await fetch(`/api/events`, {
+    const response = await fetch(`${BASE_URL}/api/events`, {
       next: { revalidate: 60 },
     });
 
