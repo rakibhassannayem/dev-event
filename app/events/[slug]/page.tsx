@@ -43,6 +43,21 @@ const EventTags = ({ tags }: { tags: string[] }) => (
   </div>
 );
 
+const parseArrayField = (field: any): string[] => {
+  if (!field) return [];
+  if (Array.isArray(field)) {
+    if (field.length === 1 && typeof field[0] === 'string' && field[0].startsWith('[')) {
+      try {
+        return JSON.parse(field[0]);
+      } catch {
+        return field;
+      }
+    }
+    return field;
+  }
+  return [];
+};
+
 const EventDetailsPage = async ({
   params,
 }: {
@@ -103,7 +118,7 @@ const EventDetailsPage = async ({
       <div className="details">
         {/* left side */}
         <div className="content">
-          <img
+          <Image
             src={image}
             alt="Event Banner"
             width={800}
@@ -138,14 +153,14 @@ const EventDetailsPage = async ({
             />
           </section>
 
-          <EventAgenda agendaItems={JSON.parse(agenda[0])} />
+          <EventAgenda agendaItems={parseArrayField(agenda)} />
 
           <section className="flex-col-gap-2">
             <h2>About the Organizer</h2>
             <p>{organizer}</p>
           </section>
 
-          <EventTags tags={JSON.parse(tags[0])} />
+          <EventTags tags={parseArrayField(tags)} />
         </div>
 
         {/* Right side */}
