@@ -1,23 +1,25 @@
 import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database";
+import events from "@/lib/constants"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 const EventsPage = async () => {
-  let events = [];
   
-  try {
-    const response = await fetch(`${BASE_URL}/api/events`, {
-      cache: "no-store",
-    });
+  // let events = [];
+  
+  // try {
+  //   const response = await fetch(`${BASE_URL}/api/events`, {
+  //     cache: "no-store",
+  //   });
     
-    if (response.ok) {
-      const data = await response.json();
-      events = data.events || [];
-    }
-  } catch (error) {
-    console.error("Failed to fetch events:", error);
-  }
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     events = data.events || [];
+  //   }
+  // } catch (error) {
+  //   console.error("Failed to fetch events:", error);
+  // }
 
   return (
     <section className="">
