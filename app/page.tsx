@@ -1,10 +1,7 @@
 import ExploreBtn from "@/components/ExploreBtn";
 import EventCard from "@/components/EventCard";
-import { IEvent } from "@/database";
+import { events, EventItem } from "@/lib/constants";
 import { cacheLife } from "next/cache";
-import events from '@/lib/constants'
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const Page = async () => {
   "use cache";
@@ -29,7 +26,7 @@ const Page = async () => {
         <ul className="events">
           {events &&
             events.length > 0 &&
-            events.map((event: IEvent) => (
+            events.map((event: EventItem) => (
               <li key={event.title} className="list-none">
                 <EventCard {...event} />
               </li>
