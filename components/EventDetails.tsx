@@ -6,7 +6,11 @@ import { cacheLife } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL 
+  ? process.env.NEXT_PUBLIC_BASE_URL.startsWith("http") 
+    ? process.env.NEXT_PUBLIC_BASE_URL 
+    : `https://${process.env.NEXT_PUBLIC_BASE_URL}` 
+  : "http://localhost:3000";
 
 const EventDetailItem = ({
   icon,
